@@ -1,11 +1,37 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
   app.enableCors();
-  await app.listen(process.env.PORT ?? 3001);
+
+  const config = new DocumentBuilder()
+    .setTitle('Task Management API')
+    .setDescription('The Task Management API description')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api', app, document);
+
+  const port = process.env.PORT || 3001;
+
+  await app.listen(port);
+
+  console.log(`Task Management API running on port ${port}`);
 }
+
 bootstrap();
