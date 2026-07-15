@@ -15,10 +15,11 @@ export class GetAdminDashboardUseCase {
       },
     });
 
-    const projectProgress = projects.map(p => {
+    const projectProgress = projects.map((p) => {
       const totalTasks = p.tasks.length;
-      const doneTasks = p.tasks.filter(t => t.status === 'DONE').length;
-      const completionPercentage = totalTasks === 0 ? 0 : Math.round((doneTasks / totalTasks) * 100);
+      const doneTasks = p.tasks.filter((t) => t.status === 'DONE').length;
+      const completionPercentage =
+        totalTasks === 0 ? 0 : Math.round((doneTasks / totalTasks) * 100);
 
       return {
         id: p.id,
@@ -50,7 +51,9 @@ export class GetAdminDashboardUseCase {
 
     const topPerformers = await Promise.all(
       doneTasksCount.map(async (t) => {
-        const user = await this.prisma.user.findUnique({ where: { id: t.assigneeId! } });
+        const user = await this.prisma.user.findUnique({
+          where: { id: t.assigneeId! },
+        });
         return {
           id: user?.id,
           name: user?.name,
@@ -58,7 +61,7 @@ export class GetAdminDashboardUseCase {
           empId: user?.empId,
           doneCount: t._count.id,
         };
-      })
+      }),
     );
 
     return {

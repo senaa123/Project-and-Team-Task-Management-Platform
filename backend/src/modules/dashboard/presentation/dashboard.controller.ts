@@ -7,7 +7,9 @@ import { GetAdminDashboardUseCase } from '../application/use-cases/get-admin-das
 @Controller('dashboard')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class DashboardController {
-  constructor(private readonly getAdminDashboardUseCase: GetAdminDashboardUseCase) {}
+  constructor(
+    private readonly getAdminDashboardUseCase: GetAdminDashboardUseCase,
+  ) {}
 
   @Get('admin')
   @Roles('ADMIN', 'PROJECT_MANAGER')

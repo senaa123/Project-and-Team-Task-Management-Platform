@@ -5,11 +5,6 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    ProjectsModule,
-    TasksModule,
-    DashboardModule,
-  ],
+  imports: [AuthModule, ProjectsModule, TasksModule, DashboardModule],
 })
 export class AppModule {}

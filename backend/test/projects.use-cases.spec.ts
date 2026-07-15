@@ -21,7 +21,9 @@ describe('Projects Use Cases', () => {
 
   const mockProjectRepo = {
     create: jest.fn(),
-    findById: jest.fn().mockResolvedValue({ id: 'proj-uuid-1', name: 'Test Project' }),
+    findById: jest
+      .fn()
+      .mockResolvedValue({ id: 'proj-uuid-1', name: 'Test Project' }),
     findAllForUser: jest.fn(),
     addMember: jest.fn(),
     isMember: jest.fn().mockResolvedValue(false),
@@ -39,10 +41,15 @@ describe('Projects Use Cases', () => {
       ],
     }).compile();
 
-    createProjectUseCase = module.get<CreateProjectUseCase>(CreateProjectUseCase);
+    createProjectUseCase =
+      module.get<CreateProjectUseCase>(CreateProjectUseCase);
     assignMemberUseCase = module.get<AssignMemberUseCase>(AssignMemberUseCase);
-    getUserProjectsUseCase = module.get<GetUserProjectsUseCase>(GetUserProjectsUseCase);
-    getProjectMembersUseCase = module.get<GetProjectMembersUseCase>(GetProjectMembersUseCase);
+    getUserProjectsUseCase = module.get<GetUserProjectsUseCase>(
+      GetUserProjectsUseCase,
+    );
+    getProjectMembersUseCase = module.get<GetProjectMembersUseCase>(
+      GetProjectMembersUseCase,
+    );
     jest.clearAllMocks();
   });
 
@@ -56,7 +63,10 @@ describe('Projects Use Cases', () => {
       );
 
       expect(mockProjectRepo.create).toHaveBeenCalledWith(
-        expect.objectContaining({ name: 'Test Project', ownerId: 'user-uuid-1' }),
+        expect.objectContaining({
+          name: 'Test Project',
+          ownerId: 'user-uuid-1',
+        }),
       );
       expect(mockProjectRepo.addMember).not.toHaveBeenCalled();
       expect(result.id).toBe('proj-uuid-1');
@@ -72,20 +82,32 @@ describe('Projects Use Cases', () => {
       );
 
       expect(mockProjectRepo.addMember).toHaveBeenCalledTimes(2);
-      expect(mockProjectRepo.addMember).toHaveBeenCalledWith('proj-uuid-1', 'user-uuid-2');
-      expect(mockProjectRepo.addMember).toHaveBeenCalledWith('proj-uuid-1', 'user-uuid-3');
+      expect(mockProjectRepo.addMember).toHaveBeenCalledWith(
+        'proj-uuid-1',
+        'user-uuid-2',
+      );
+      expect(mockProjectRepo.addMember).toHaveBeenCalledWith(
+        'proj-uuid-1',
+        'user-uuid-3',
+      );
     });
   });
 
   describe('AssignMemberUseCase', () => {
     it('✅ should assign a member to a project', async () => {
-      mockProjectRepo.findById.mockResolvedValue({ id: 'proj-uuid-1', name: 'Test Project' });
+      mockProjectRepo.findById.mockResolvedValue({
+        id: 'proj-uuid-1',
+        name: 'Test Project',
+      });
       mockProjectRepo.isMember.mockResolvedValue(false);
       mockProjectRepo.addMember.mockResolvedValue(undefined);
 
       await assignMemberUseCase.execute('proj-uuid-1', 'user-uuid-2');
 
-      expect(mockProjectRepo.addMember).toHaveBeenCalledWith('proj-uuid-1', 'user-uuid-2');
+      expect(mockProjectRepo.addMember).toHaveBeenCalledWith(
+        'proj-uuid-1',
+        'user-uuid-2',
+      );
     });
   });
 
@@ -95,7 +117,9 @@ describe('Projects Use Cases', () => {
 
       const result = await getUserProjectsUseCase.execute('user-uuid-1');
 
-      expect(mockProjectRepo.findAllForUser).toHaveBeenCalledWith('user-uuid-1');
+      expect(mockProjectRepo.findAllForUser).toHaveBeenCalledWith(
+        'user-uuid-1',
+      );
       expect(result).toHaveLength(1);
       expect(result[0].name).toBe('Test Project');
     });

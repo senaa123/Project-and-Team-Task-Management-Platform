@@ -23,4 +23,4 @@ import { PrismaService } from '../../shared/database/prisma.service';
     { provide: TASK_REPOSITORY, useClass: PrismaTaskRepository },
   ],
 })
-export class TasksModule {}
+export class TasksModule {}

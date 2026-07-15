@@ -46,7 +46,12 @@ describe('Task Management API (e2e)', () => {
     it('✅ should register an ADMIN user', async () => {
       const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Test Admin', email: adminEmail, password: 'Admin123!', role: 'ADMIN' })
+        .send({
+          name: 'Test Admin',
+          email: adminEmail,
+          password: 'Admin123!',
+          role: 'ADMIN',
+        })
         .expect(201);
 
       expect(res.body).toHaveProperty('id');
@@ -58,7 +63,11 @@ describe('Task Management API (e2e)', () => {
     it('✅ should register a TEAM_MEMBER (default role)', async () => {
       const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Test Member', email: memberEmail, password: 'Member123!' })
+        .send({
+          name: 'Test Member',
+          email: memberEmail,
+          password: 'Member123!',
+        })
         .expect(201);
 
       expect(res.body.role).toBe('TEAM_MEMBER');
@@ -68,28 +77,46 @@ describe('Task Management API (e2e)', () => {
     it('❌ should fail with a duplicate email (409)', async () => {
       await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Duplicate', email: adminEmail, password: 'Admin123!', role: 'ADMIN' })
+        .send({
+          name: 'Duplicate',
+          email: adminEmail,
+          password: 'Admin123!',
+          role: 'ADMIN',
+        })
         .expect(409);
     });
 
     it('❌ should fail with an invalid email format (400)', async () => {
       await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Bad Email', email: 'not-an-email', password: 'Admin123!' })
+        .send({
+          name: 'Bad Email',
+          email: 'not-an-email',
+          password: 'Admin123!',
+        })
         .expect(400);
     });
 
     it('❌ should fail when password is too short < 6 chars (400)', async () => {
       await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Short Pass', email: `short_${timestamp}@test.com`, password: '123' })
+        .send({
+          name: 'Short Pass',
+          email: `short_${timestamp}@test.com`,
+          password: '123',
+        })
         .expect(400);
     });
 
     it('❌ should fail with an invalid role value (400)', async () => {
       await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'Bad Role', email: `badrole_${timestamp}@test.com`, password: 'Admin123!', role: 'SUPERUSER' })
+        .send({
+          name: 'Bad Role',
+          email: `badrole_${timestamp}@test.com`,
+          password: 'Admin123!',
+          role: 'SUPERUSER',
+        })
         .expect(400);
     });
 
@@ -232,9 +259,7 @@ describe('Task Management API (e2e)', () => {
     });
 
     it('❌ should fail with no Authorization header (401)', async () => {
-      await request(app.getHttpServer())
-        .get('/projects')
-        .expect(401);
+      await request(app.getHttpServer()).get('/projects').expect(401);
     });
   });
 

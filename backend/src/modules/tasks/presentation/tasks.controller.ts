@@ -1,4 +1,13 @@
-import { Controller, Post, Get, Patch, Body, Param, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../../../shared/guards/roles.guard';
 import { Roles } from '../../../shared/decorators/roles.decorator';
@@ -29,14 +38,32 @@ export class TasksController {
   }
 
   @Patch(':id/status')
-  updateStatus(@Param('id') id: string, @Body() dto: UpdateTaskStatusDto, @Req() req: any) {
-    return this.updateTaskStatusUseCase.execute(id, dto.status, req.user.userId, req.user.role);
+  updateStatus(
+    @Param('id') id: string,
+    @Body() dto: UpdateTaskStatusDto,
+    @Req() req: any,
+  ) {
+    return this.updateTaskStatusUseCase.execute(
+      id,
+      dto.status,
+      req.user.userId,
+      req.user.role,
+    );
   }
 
   @Patch(':id')
   @Roles('ADMIN', 'PROJECT_MANAGER')
-  updateTask(@Param('id') id: string, @Body() dto: UpdateTaskDto, @Req() req: any) {
-    return this.updateTaskUseCase.execute(id, dto, req.user.userId, req.user.role);
+  updateTask(
+    @Param('id') id: string,
+    @Body() dto: UpdateTaskDto,
+    @Req() req: any,
+  ) {
+    return this.updateTaskUseCase.execute(
+      id,
+      dto,
+      req.user.userId,
+      req.user.role,
+    );
   }
 
   @Get('project/:projectId')

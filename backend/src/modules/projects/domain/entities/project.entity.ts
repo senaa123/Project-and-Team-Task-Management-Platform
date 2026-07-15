@@ -6,6 +6,8 @@ export class ProjectEntity {
     public ownerId: string,
     public createdAt: Date,
     public owner?: { id: string; name: string; email: string; empId: string },
-    public members?: { user: { id: string; name: string; email: string; empId: string } }[],
+    public members?: {
+      user: { id: string; name: string; email: string; empId: string };
+    }[],
   ) {}
 }

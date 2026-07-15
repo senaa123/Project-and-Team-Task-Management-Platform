@@ -1,8 +1,19 @@
-import { Controller, Get, Patch, Param, Body, UseGuards, Inject } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Patch,
+  Param,
+  Body,
+  UseGuards,
+  Inject,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../../../shared/guards/roles.guard';
 import { Roles } from '../../../shared/decorators/roles.decorator';
-import { type IUserRepository, USER_REPOSITORY } from '../domain/repositories/user.repository.interface';
+import {
+  type IUserRepository,
+  USER_REPOSITORY,
+} from '../domain/repositories/user.repository.interface';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'), RolesGuard)

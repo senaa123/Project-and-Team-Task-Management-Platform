@@ -1,6 +1,9 @@
 import { Inject, Injectable, ConflictException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { type IUserRepository, USER_REPOSITORY } from '../../domain/repositories/user.repository.interface';
+import {
+  type IUserRepository,
+  USER_REPOSITORY,
+} from '../../domain/repositories/user.repository.interface';
 import { RegisterDto } from '../dto/register.dto';
 
 @Injectable()
@@ -14,7 +17,7 @@ export class RegisterUseCase {
     if (existing) throw new ConflictException('Email already registered');
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
-    const user = await this.userRepo.create({
+    await this.userRepo.create({
       empId: dto.empId,
       name: dto.name,
       email: dto.email,
@@ -23,6 +26,9 @@ export class RegisterUseCase {
       isVerified: false,
     });
 
-    return { message: 'Registration successful. Please wait for an administrator to verify your account and assign your role.' };
+    return {
+      message:
+        'Registration successful. Please wait for an administrator to verify your account and assign your role.',
+    };
   }
 }

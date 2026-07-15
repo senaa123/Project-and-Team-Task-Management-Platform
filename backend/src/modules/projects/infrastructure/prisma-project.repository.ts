@@ -14,10 +14,24 @@ export class PrismaProjectRepository implements IProjectRepository {
       p.description,
       p.ownerId,
       p.createdAt,
-      p.owner ? { id: p.owner.id, name: p.owner.name, email: p.owner.email, empId: p.owner.empId } : undefined,
-      p.members ? p.members.map((m: any) => ({
-        user: { id: m.user.id, name: m.user.name, email: m.user.email, empId: m.user.empId }
-      })) : undefined
+      p.owner
+        ? {
+            id: p.owner.id,
+            name: p.owner.name,
+            email: p.owner.email,
+            empId: p.owner.empId,
+          }
+        : undefined,
+      p.members
+        ? p.members.map((m: any) => ({
+            user: {
+              id: m.user.id,
+              name: m.user.name,
+              email: m.user.email,
+              empId: m.user.empId,
+            },
+          }))
+        : undefined,
     );
   }
 
@@ -33,7 +47,9 @@ export class PrismaProjectRepository implements IProjectRepository {
         owner: { select: { id: true, name: true, email: true, empId: true } },
         members: {
           include: {
-            user: { select: { id: true, name: true, email: true, empId: true } },
+            user: {
+              select: { id: true, name: true, email: true, empId: true },
+            },
           },
         },
       },
@@ -48,7 +64,9 @@ export class PrismaProjectRepository implements IProjectRepository {
         owner: { select: { id: true, name: true, email: true, empId: true } },
         members: {
           include: {
-            user: { select: { id: true, name: true, email: true, empId: true } },
+            user: {
+              select: { id: true, name: true, email: true, empId: true },
+            },
           },
         },
       },
@@ -62,7 +80,9 @@ export class PrismaProjectRepository implements IProjectRepository {
         owner: { select: { id: true, name: true, email: true, empId: true } },
         members: {
           include: {
-            user: { select: { id: true, name: true, email: true, empId: true } },
+            user: {
+              select: { id: true, name: true, email: true, empId: true },
+            },
           },
         },
       },
@@ -79,7 +99,9 @@ export class PrismaProjectRepository implements IProjectRepository {
         owner: { select: { id: true, name: true, email: true, empId: true } },
         members: {
           include: {
-            user: { select: { id: true, name: true, email: true, empId: true } },
+            user: {
+              select: { id: true, name: true, email: true, empId: true },
+            },
           },
         },
       },
@@ -103,6 +125,6 @@ export class PrismaProjectRepository implements IProjectRepository {
       where: { projectId },
       include: { user: true },
     });
-    return members.map(m => m.user).filter(u => u.isVerified);
+    return members.map((m) => m.user).filter((u) => u.isVerified);
   }
 }

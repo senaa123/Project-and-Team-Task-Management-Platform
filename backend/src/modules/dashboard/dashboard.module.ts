@@ -7,9 +7,6 @@ import { PrismaService } from '../../shared/database/prisma.service';
 @Module({
   imports: [AuthModule],
   controllers: [DashboardController],
-  providers: [
-    GetAdminDashboardUseCase,
-    PrismaService,
-  ],
+  providers: [GetAdminDashboardUseCase, PrismaService],
 })
 export class DashboardModule {}

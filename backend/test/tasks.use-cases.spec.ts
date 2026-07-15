@@ -49,7 +49,9 @@ describe('Tasks Use Cases', () => {
     }).compile();
 
     createTaskUseCase = module.get<CreateTaskUseCase>(CreateTaskUseCase);
-    updateTaskStatusUseCase = module.get<UpdateTaskStatusUseCase>(UpdateTaskStatusUseCase);
+    updateTaskStatusUseCase = module.get<UpdateTaskStatusUseCase>(
+      UpdateTaskStatusUseCase,
+    );
     getMyTasksUseCase = module.get<GetMyTasksUseCase>(GetMyTasksUseCase);
     jest.clearAllMocks();
   });
@@ -58,11 +60,15 @@ describe('Tasks Use Cases', () => {
     it('✅ should create a task without an assignee', async () => {
       mockTaskRepo.create.mockResolvedValue({ ...mockTask, assigneeId: null });
 
-      const result = await createTaskUseCase.execute({
-        projectId: 'proj-uuid-1',
-        title: 'Fix the bug',
-        priority: 'HIGH',
-      }, 'admin-id', 'ADMIN');
+      const result = await createTaskUseCase.execute(
+        {
+          projectId: 'proj-uuid-1',
+          title: 'Fix the bug',
+          priority: 'HIGH',
+        },
+        'admin-id',
+        'ADMIN',
+      );
 
       expect(mockPrisma.projectMember.findUnique).not.toHaveBeenCalled();
       expect(mockTaskRepo.create).toHaveBeenCalled();
@@ -70,18 +76,30 @@ describe('Tasks Use Cases', () => {
     });
 
     it('✅ should create a task when assignee IS a project member', async () => {
-      mockPrisma.projectMember.findUnique.mockResolvedValue({ projectId: 'proj-uuid-1', userId: 'user-uuid-2' });
+      mockPrisma.projectMember.findUnique.mockResolvedValue({
+        projectId: 'proj-uuid-1',
+        userId: 'user-uuid-2',
+      });
       mockTaskRepo.create.mockResolvedValue(mockTask);
 
-      const result = await createTaskUseCase.execute({
-        projectId: 'proj-uuid-1',
-        title: 'Fix the bug',
-        assigneeId: 'user-uuid-2',
-      }, 'admin-id', 'ADMIN');
+      const result = await createTaskUseCase.execute(
+        {
+          projectId: 'proj-uuid-1',
+          title: 'Fix the bug',
+          assigneeId: 'user-uuid-2',
+        },
+        'admin-id',
+        'ADMIN',
+      );
 
       expect(mockPrisma.projectMember.findUnique).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: { projectId_userId: { projectId: 'proj-uuid-1', userId: 'user-uuid-2' } },
+          where: {
+            projectId_userId: {
+              projectId: 'proj-uuid-1',
+              userId: 'user-uuid-2',
+            },
+          },
         }),
       );
       expect(result.assigneeId).toBe('user-uuid-2');
@@ -91,11 +109,15 @@ describe('Tasks Use Cases', () => {
       mockPrisma.projectMember.findUnique.mockResolvedValue(null); // Not a member
 
       await expect(
-        createTaskUseCase.execute({
-          projectId: 'proj-uuid-1',
-          title: 'Sneaky task',
-          assigneeId: 'outside-user-uuid',
-        }, 'admin-id', 'ADMIN'),
+        createTaskUseCase.execute(
+          {
+            projectId: 'proj-uuid-1',
+            title: 'Sneaky task',
+            assigneeId: 'outside-user-uuid',
+          },
+          'admin-id',
+          'ADMIN',
+        ),
       ).rejects.toThrow(BadRequestException);
 
       expect(mockTaskRepo.create).not.toHaveBeenCalled();
@@ -108,9 +130,17 @@ describe('Tasks Use Cases', () => {
       mockTaskRepo.findById.mockResolvedValue(mockTask);
       mockTaskRepo.updateStatus.mockResolvedValue(updatedTask);
 
-      const result = await updateTaskStatusUseCase.execute('task-uuid-1', 'IN_PROGRESS', 'user-uuid-2', 'TEAM_MEMBER');
+      const result = await updateTaskStatusUseCase.execute(
+        'task-uuid-1',
+        'IN_PROGRESS',
+        'user-uuid-2',
+        'TEAM_MEMBER',
+      );
 
-      expect(mockTaskRepo.updateStatus).toHaveBeenCalledWith('task-uuid-1', 'IN_PROGRESS');
+      expect(mockTaskRepo.updateStatus).toHaveBeenCalledWith(
+        'task-uuid-1',
+        'IN_PROGRESS',
+      );
       expect(result.status).toBe('IN_PROGRESS');
     });
   });

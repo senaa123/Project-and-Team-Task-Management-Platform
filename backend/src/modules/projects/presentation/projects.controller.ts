@@ -1,4 +1,13 @@
-import { Controller, Post, Get, Patch, Body, Param, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../../../shared/guards/roles.guard';
 import { Roles } from '../../../shared/decorators/roles.decorator';
@@ -52,7 +61,10 @@ export class ProjectsController {
 
   @Patch(':id/owner')
   @Roles('ADMIN')
-  updateOwner(@Param('id') projectId: string, @Body('ownerId') ownerId: string) {
+  updateOwner(
+    @Param('id') projectId: string,
+    @Body('ownerId') ownerId: string,
+  ) {
     return this.updateProjectOwnerUseCase.execute(projectId, ownerId);
   }
 }

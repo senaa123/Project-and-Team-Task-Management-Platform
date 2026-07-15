@@ -51,7 +51,11 @@ describe('Auth Use Cases', () => {
   describe('RegisterUseCase', () => {
     it('✅ should register a new user successfully', async () => {
       mockUserRepo.findByEmail.mockResolvedValue(null);
-      mockUserRepo.create.mockResolvedValue({ ...mockUser, isVerified: false, role: 'PENDING' });
+      mockUserRepo.create.mockResolvedValue({
+        ...mockUser,
+        isVerified: false,
+        role: 'PENDING',
+      });
 
       const result = await registerUseCase.execute({
         empId: 'EMP001',
@@ -85,7 +89,10 @@ describe('Auth Use Cases', () => {
   describe('LoginUseCase', () => {
     it('✅ should login a verified user and return a JWT', async () => {
       const hash = await bcrypt.hash('password123', 10);
-      mockUserRepo.findByEmail.mockResolvedValue({ ...mockUser, passwordHash: hash });
+      mockUserRepo.findByEmail.mockResolvedValue({
+        ...mockUser,
+        passwordHash: hash,
+      });
 
       const result = await loginUseCase.execute({
         email: 'test@example.com',
@@ -93,32 +100,50 @@ describe('Auth Use Cases', () => {
       });
 
       expect(result).toHaveProperty('accessToken', 'mock-jwt-token');
-      expect(result.user).toMatchObject({ email: 'test@example.com', role: 'TEAM_MEMBER' });
+      expect(result.user).toMatchObject({
+        email: 'test@example.com',
+        role: 'TEAM_MEMBER',
+      });
     });
 
     it('❌ should throw UnauthorizedException if user does not exist', async () => {
       mockUserRepo.findByEmail.mockResolvedValue(null);
 
       await expect(
-        loginUseCase.execute({ email: 'ghost@example.com', password: 'password123' }),
+        loginUseCase.execute({
+          email: 'ghost@example.com',
+          password: 'password123',
+        }),
       ).rejects.toThrow(UnauthorizedException);
     });
 
     it('❌ should block login if user is not verified (pending)', async () => {
       const hash = await bcrypt.hash('password123', 10);
-      mockUserRepo.findByEmail.mockResolvedValue({ ...mockUser, isVerified: false });
+      mockUserRepo.findByEmail.mockResolvedValue({
+        ...mockUser,
+        isVerified: false,
+      });
 
       await expect(
-        loginUseCase.execute({ email: 'test@example.com', password: 'password123' }),
+        loginUseCase.execute({
+          email: 'test@example.com',
+          password: 'password123',
+        }),
       ).rejects.toThrow(UnauthorizedException);
     });
 
     it('❌ should throw UnauthorizedException if password is wrong', async () => {
       const hash = await bcrypt.hash('correctpassword', 10);
-      mockUserRepo.findByEmail.mockResolvedValue({ ...mockUser, passwordHash: hash });
+      mockUserRepo.findByEmail.mockResolvedValue({
+        ...mockUser,
+        passwordHash: hash,
+      });
 
       await expect(
-        loginUseCase.execute({ email: 'test@example.com', password: 'wrongpassword' }),
+        loginUseCase.execute({
+          email: 'test@example.com',
+          password: 'wrongpassword',
+        }),
       ).rejects.toThrow(UnauthorizedException);
     });
   });

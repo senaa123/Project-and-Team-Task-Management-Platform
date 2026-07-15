@@ -33,12 +33,21 @@ describe('Tasks API (e2e)', () => {
     // --- Seed: create users
     const adminReg = await request(app.getHttpServer())
       .post('/auth/register')
-      .send({ name: 'Task Admin', email: adminEmail, password: 'Admin123!', role: 'ADMIN' });
+      .send({
+        name: 'Task Admin',
+        email: adminEmail,
+        password: 'Admin123!',
+        role: 'ADMIN',
+      });
     adminUserId = adminReg.body.id;
 
     const memberReg = await request(app.getHttpServer())
       .post('/auth/register')
-      .send({ name: 'Task Member', email: memberEmail, password: 'Member123!' });
+      .send({
+        name: 'Task Member',
+        email: memberEmail,
+        password: 'Member123!',
+      });
     memberUserId = memberReg.body.id;
 
     // --- Seed: login both
@@ -56,7 +65,10 @@ describe('Tasks API (e2e)', () => {
     const proj = await request(app.getHttpServer())
       .post('/projects')
       .set('Authorization', `Bearer ${adminToken}`)
-      .send({ name: 'Task Test Project', description: 'Used by task e2e tests' });
+      .send({
+        name: 'Task Test Project',
+        description: 'Used by task e2e tests',
+      });
     projectId = proj.body.id;
 
     // --- Seed: assign member to project

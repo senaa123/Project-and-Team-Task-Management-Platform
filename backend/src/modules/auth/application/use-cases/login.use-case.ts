@@ -1,7 +1,10 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { type IUserRepository, USER_REPOSITORY } from '../../domain/repositories/user.repository.interface';
+import {
+  type IUserRepository,
+  USER_REPOSITORY,
+} from '../../domain/repositories/user.repository.interface';
 import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
@@ -14,7 +17,7 @@ export class LoginUseCase {
   async execute(dto: LoginDto) {
     const user = await this.userRepo.findByEmail(dto.email);
     if (!user) throw new UnauthorizedException('Invalid credentials');
-    
+
     if (!user.isVerified) {
       throw new UnauthorizedException('Account pending admin approval');
     }
@@ -25,6 +28,14 @@ export class LoginUseCase {
     const payload = { sub: user.id, email: user.email, role: user.role };
     const accessToken = this.jwtService.sign(payload);
 
-    return { accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } };
+    return {
+      accessToken,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
   }
 }

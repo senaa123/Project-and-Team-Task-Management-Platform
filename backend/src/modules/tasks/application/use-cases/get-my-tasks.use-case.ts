@@ -1,5 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { type ITaskRepository, TASK_REPOSITORY } from '../../domain/repositories/task.repository.interface';
+import {
+  type ITaskRepository,
+  TASK_REPOSITORY,
+} from '../../domain/repositories/task.repository.interface';
 
 @Injectable()
 export class GetMyTasksUseCase {

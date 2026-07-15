@@ -1,5 +1,13 @@
-import { Inject, Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
-import { type ITaskRepository, TASK_REPOSITORY } from '../../domain/repositories/task.repository.interface';
+import {
+  Inject,
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
+import {
+  type ITaskRepository,
+  TASK_REPOSITORY,
+} from '../../domain/repositories/task.repository.interface';
 import { PrismaService } from '../../../../shared/database/prisma.service';
 
 @Injectable()
@@ -9,7 +17,12 @@ export class UpdateTaskStatusUseCase {
     private readonly prisma: PrismaService,
   ) {}
 
-  async execute(taskId: string, status: string, requesterId: string, requesterRole: string) {
+  async execute(
+    taskId: string,
+    status: string,
+    requesterId: string,
+    requesterRole: string,
+  ) {
     const task = await this.taskRepo.findById(taskId);
     if (!task) throw new NotFoundException('Task not found');
 
@@ -18,9 +31,13 @@ export class UpdateTaskStatusUseCase {
     }
 
     if (requesterRole === 'PROJECT_MANAGER') {
-      const project = await this.prisma.project.findUnique({ where: { id: task.projectId } });
+      const project = await this.prisma.project.findUnique({
+        where: { id: task.projectId },
+      });
       if (project?.ownerId !== requesterId) {
-        throw new ForbiddenException('You can only update tasks in projects you manage');
+        throw new ForbiddenException(
+          'You can only update tasks in projects you manage',
+        );
       }
     }
 

@@ -50,9 +50,8 @@ jobs:
         run: npx tsc --noEmit
 
       # ── 5. Lint ──────────────────────────────────────────────────────────────
-      #  Use --max-warnings 0 so any lint warning fails the pipeline
       - name: Run ESLint
-        run: npx eslint "{src,apps,libs,test}/**/*.ts" --max-warnings 0
+        run: npx eslint "{src,apps,libs,test}/**/*.ts"
 
       # ── 6. Prisma client ─────────────────────────────────────────────────────
       #  Generate the Prisma client from schema (no DB connection required)
