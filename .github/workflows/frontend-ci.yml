@@ -51,7 +51,7 @@ jobs:
 
       # ── 5. Lint ──────────────────────────────────────────────────────────────
       - name: Run ESLint
-        run: npx next lint
+        run: npm run lint
 
       # ── 6. Production build ──────────────────────────────────────────────────
       #  next build validates routes, RSC, and catches import errors.
