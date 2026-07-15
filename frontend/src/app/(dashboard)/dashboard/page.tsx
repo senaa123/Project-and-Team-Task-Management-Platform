@@ -56,8 +56,8 @@ export default function DashboardPage() {
     .slice(0, 10);
 
   return (
-    <div className="flex w-full h-screen bg-white text-gray-800">
-      <div className="flex-1 flex flex-col py-8 px-8 overflow-y-auto">
+    <div className="flex w-full h-full bg-white text-gray-800">
+      <div className="flex-1 flex flex-col py-4 px-4 md:py-8 md:px-8 overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 shrink-0">
           <div>
@@ -73,23 +73,23 @@ export default function DashboardPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-[#F2EFFE] rounded-[24px] p-8 flex items-center justify-between relative overflow-hidden mb-8 shadow-sm shrink-0">
-          <div className="relative z-10">
+        <div className="bg-[#F2EFFE] rounded-[24px] p-6 md:p-8 flex items-center justify-between relative overflow-hidden mb-8 shadow-sm shrink-0">
+          <div className="relative z-10 w-full md:w-auto">
             <h2 className="text-[28px] font-bold text-gray-900 mb-2">Workspace Overview</h2>
             <p className="text-[#8C6AE6] text-[13px] font-bold mb-6">
               {isAdminOrPM ? "Monitor overall project progress and team performance." : `You have ${remainingCount} tasks remaining to be done.`}
             </p>
-            <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-primary-dark transition shadow-md">
+            {/* <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-primary-dark transition shadow-md w-full sm:w-auto">
               View schedule
-            </button>
+            </button> */}
           </div>
-          <div className="absolute right-0 bottom-0 h-[140%] w-auto translate-y-6 mr-10">
+          <div className="hidden md:block absolute right-0 bottom-0 h-[140%] w-auto translate-y-6 mr-10">
             <Image src="/hero.png" alt="Hero" width={280} height={280} className="object-contain" priority />
           </div>
         </div>
 
         {/* Bottom Row */}
-        <div className="grid grid-cols-2 gap-6 min-h-[300px] mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[300px] mb-8">
           {isAdminOrPM && adminData ? (
             <>
               {/* Projects Progress */}
@@ -152,8 +152,8 @@ export default function DashboardPage() {
                   <h3 className="font-bold text-gray-900 text-base">Your Task Progress</h3>
                 </div>
                 
-                <div className="flex gap-6 bg-white border border-gray-100 rounded-[20px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex-1">
-                  <div className="flex-1 flex items-end justify-between pr-6 border-r border-gray-100 pb-2">
+                <div className="flex flex-col sm:flex-row gap-6 bg-white border border-gray-100 rounded-[20px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex-1">
+                  <div className="flex-1 flex items-end justify-between sm:pr-6 sm:border-r border-gray-100 pb-2">
                      {['TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE'].map((status, idx) => {
                        const count = statusCounts[status] || 0;
                        const height = maxCount > 0 ? (count / maxCount) * 100 : 0;
@@ -170,7 +170,7 @@ export default function DashboardPage() {
                      })}
                   </div>
                   
-                  <div className="flex flex-col justify-center w-24 py-1 gap-6">
+                  <div className="flex flex-row sm:flex-col justify-between sm:justify-center w-full sm:w-24 py-1 sm:gap-6">
                     <div>
                       <p className="text-[11px] text-gray-400 font-bold mb-1">Total Tasks</p>
                       <span className="text-xl font-bold text-gray-900">{myTasks.length}</span>
@@ -179,7 +179,7 @@ export default function DashboardPage() {
                       <p className="text-[11px] text-gray-400 font-bold mb-1">Completed</p>
                       <div className="flex items-center justify-between">
                         <span className="text-xl font-bold text-gray-900">{doneCount}</span>
-                        <span className="text-[10px] font-bold bg-[#F2EFFE] text-primary px-1.5 py-0.5 rounded">{progressPct}%</span>
+                        <span className="text-[10px] font-bold bg-[#F2EFFE] text-primary px-1.5 py-0.5 rounded ml-2">{progressPct}%</span>
                       </div>
                     </div>
                   </div>
