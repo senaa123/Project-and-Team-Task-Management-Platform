@@ -40,5 +40,5 @@ EXPOSE 8080
 ENV PORT=8080
 ENV NODE_ENV=production
 
-# Start the application
-CMD ["npm", "run", "start:prod"]
+# Startup: run migrations then start the server
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
