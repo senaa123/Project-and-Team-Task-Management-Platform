@@ -1,5 +1,8 @@
 # Base image
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
+
+# Install OpenSSL (required for Prisma client generation)
+RUN apt-get update && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +20,10 @@ RUN npx prisma generate
 RUN npm run build
 
 # Production image
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
+
+# Install OpenSSL in the production container as well
+RUN apt-get update && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -27,7 +33,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 
-# Expose port (Cloud Run defaults to 8080)
+# Expose port (Fly.io/Cloud Run defaults to 8080)
 EXPOSE 8080
 
 # Environment variables
