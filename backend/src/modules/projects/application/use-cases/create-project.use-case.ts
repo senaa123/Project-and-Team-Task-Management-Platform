@@ -9,6 +9,12 @@ export class CreateProjectUseCase {
   ) {}
 
   async execute(dto: CreateProjectDto, ownerId: string) {
-    return this.projectRepo.create({ ...dto, ownerId });
+    const project = await this.projectRepo.create({ name: dto.name, description: dto.description, ownerId });
+    if (dto.memberIds && dto.memberIds.length > 0) {
+      for (const memberId of dto.memberIds) {
+        await this.projectRepo.addMember(project.id, memberId);
+      }
+    }
+    return project;
   }
 }

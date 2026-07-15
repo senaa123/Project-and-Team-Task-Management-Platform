@@ -14,6 +14,10 @@ export class LoginUseCase {
   async execute(dto: LoginDto) {
     const user = await this.userRepo.findByEmail(dto.email);
     if (!user) throw new UnauthorizedException('Invalid credentials');
+    
+    if (!user.isVerified) {
+      throw new UnauthorizedException('Account pending admin approval');
+    }
 
     const isMatch = await bcrypt.compare(dto.password, user.passwordHash);
     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
