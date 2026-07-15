@@ -62,7 +62,7 @@ describe('Tasks Use Cases', () => {
         projectId: 'proj-uuid-1',
         title: 'Fix the bug',
         priority: 'HIGH',
-      });
+      }, 'admin-id', 'ADMIN');
 
       expect(mockPrisma.projectMember.findUnique).not.toHaveBeenCalled();
       expect(mockTaskRepo.create).toHaveBeenCalled();
@@ -77,7 +77,7 @@ describe('Tasks Use Cases', () => {
         projectId: 'proj-uuid-1',
         title: 'Fix the bug',
         assigneeId: 'user-uuid-2',
-      });
+      }, 'admin-id', 'ADMIN');
 
       expect(mockPrisma.projectMember.findUnique).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -95,7 +95,7 @@ describe('Tasks Use Cases', () => {
           projectId: 'proj-uuid-1',
           title: 'Sneaky task',
           assigneeId: 'outside-user-uuid',
-        }),
+        }, 'admin-id', 'ADMIN'),
       ).rejects.toThrow(BadRequestException);
 
       expect(mockTaskRepo.create).not.toHaveBeenCalled();
