@@ -284,16 +284,16 @@ export default function ProjectsPage() {
   );
 
   return (
-    <div className="flex-1 flex flex-col py-8 px-8 overflow-y-auto bg-white text-gray-800 h-screen">
+    <div className="flex-1 flex flex-col py-4 px-4 md:py-8 md:px-8 overflow-y-auto bg-white text-gray-800 h-full">
       <Topbar />
 
       {/* ── Header ────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 className="text-xl font-semibold text-gray-800">
           {isAdmin ? "All Projects" : "Your Projects"}
         </h2>
         {canManage && (
-          <Button onClick={() => setShowCreate(true)} className="flex items-center gap-2">
+          <Button onClick={() => setShowCreate(true)} className="flex items-center gap-2 self-start sm:self-auto">
             <Plus size={16} /> New Project
           </Button>
         )}
@@ -319,10 +319,10 @@ export default function ProjectsPage() {
 
       {isAdmin ? (
         /* ── ADMIN: single editable grid of ALL projects ─────── */
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {allProjects.map((project) => renderProjectCard(project, true))}
           {allProjects.length === 0 && (
-            <Card className="sm:col-span-3 text-center text-gray-400 py-8">
+            <Card className="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-400 py-8">
               No projects found.
             </Card>
           )}
@@ -330,10 +330,10 @@ export default function ProjectsPage() {
       ) : (
         /* ── PM / MEMBER: Your Projects + read-only others ─────── */
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
             {projects.map((project) => renderProjectCard(project, true))}
             {projects.length === 0 && (
-              <Card className="sm:col-span-3 text-center text-gray-400 py-8">
+              <Card className="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-400 py-8">
                 No projects assigned to you yet.
               </Card>
             )}
@@ -345,7 +345,7 @@ export default function ProjectsPage() {
                 <h2 className="text-lg font-semibold text-gray-700">All Projects</h2>
                 <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">read-only</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {otherProjects.map((project) => renderProjectCard(project, false))}
               </div>
             </>

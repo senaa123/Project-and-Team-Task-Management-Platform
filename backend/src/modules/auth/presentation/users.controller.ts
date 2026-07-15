@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Patch,
+  Delete,
   Param,
   Body,
   UseGuards,
@@ -40,5 +41,12 @@ export class UsersController {
       throw new Error('Invalid role specified');
     }
     return this.userRepo.verifyUser(id, role);
+  }
+
+  @Delete(':id')
+  @Roles('ADMIN')
+  async rejectUser(@Param('id') id: string) {
+    await this.userRepo.deleteUser(id);
+    return { success: true };
   }
 }

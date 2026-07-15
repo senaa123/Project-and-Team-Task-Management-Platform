@@ -93,4 +93,10 @@ export class PrismaUserRepository implements IUserRepository {
       u.isVerified,
     );
   }
+
+  async deleteUser(userId: string) {
+    await this.prisma.user.delete({
+      where: { id: userId },
+    });
+  }
 }

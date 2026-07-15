@@ -260,7 +260,7 @@ export default function TasksPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col py-8 px-8 overflow-y-auto bg-white text-gray-800 h-screen">
+    <div className="flex-1 flex flex-col py-4 px-4 md:py-8 md:px-8 overflow-y-auto bg-white text-gray-800 h-full">
       <Topbar />
 
       {statusError && (
@@ -272,10 +272,10 @@ export default function TasksPage() {
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
           <h2 className="text-xl font-semibold text-gray-800">Tasks</h2>
-          <div className="w-56">
+          <div className="w-full sm:w-56">
             <CustomSelect
               options={projects.map((p) => ({ label: p.name, value: p.id }))}
               value={selectedProject}
@@ -290,7 +290,7 @@ export default function TasksPage() {
 
         {/* Only show "New Task" if admin or if PM owns this project */}
         {(isAdmin || (isPM && isProjectOwner)) && (
-          <Button onClick={() => setShowCreate(true)} className="flex items-center gap-2">
+          <Button onClick={() => setShowCreate(true)} className="flex items-center justify-center gap-2 w-full sm:w-auto">
             <Plus size={16} /> New Task
           </Button>
         )}
@@ -303,12 +303,12 @@ export default function TasksPage() {
             <h3 className="font-semibold text-gray-800">Create Task</h3>
             <button onClick={() => setShowCreate(false)}><X size={18} className="text-gray-400" /></button>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Task title"
-              className="col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
+              className="sm:col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
             />
             <div className="w-full">
               <CustomSelect
@@ -337,11 +337,11 @@ export default function TasksPage() {
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm"
+              className="sm:col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm"
             />
           </div>
           {createError && <p className="text-sm text-red-500 mt-3">{createError}</p>}
-          <Button onClick={handleCreate} className="mt-3" disabled={isSubmitting}>
+          <Button onClick={handleCreate} className="mt-3 w-full sm:w-auto" disabled={isSubmitting}>
             {isSubmitting ? "Creating..." : "Create Task"}
           </Button>
         </Card>
@@ -354,12 +354,12 @@ export default function TasksPage() {
             <h3 className="font-semibold text-gray-800">Edit Task</h3>
             <button onClick={() => setEditTaskId(null)}><X size={18} className="text-gray-400" /></button>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Task title"
-              className="col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
+              className="sm:col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
             />
             <div className="w-full">
               <CustomSelect
@@ -388,11 +388,11 @@ export default function TasksPage() {
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm"
+              className="sm:col-span-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm"
             />
           </div>
           {editError && <p className="text-sm text-red-500 mt-3">{editError}</p>}
-          <Button onClick={handleEditSubmit} className="mt-3" disabled={isSubmitting}>
+          <Button onClick={handleEditSubmit} className="mt-3 w-full sm:w-auto" disabled={isSubmitting}>
             {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>
         </Card>
