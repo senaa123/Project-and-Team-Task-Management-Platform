@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import { User } from "@/types";
-import { Check, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import CustomSelect from "@/components/ui/CustomSelect";
 
@@ -44,26 +43,27 @@ export default function ApprovalsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchPending();
-  }, []);
-
+  // Declare before useEffect so it's in scope when the effect runs
   const fetchPending = async () => {
     try {
       const res = await api.get("/users/pending");
       setPendingUsers(res.data);
-    } catch (err: any) {
+    } catch {
       setError("Failed to fetch pending users.");
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    void fetchPending();
+  }, []);
+
   const handleApprove = async (id: string, role: string) => {
     try {
       await api.patch(`/users/${id}/verify`, { role });
       setPendingUsers((prev) => prev.filter((u) => u.id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to verify user.");
     }
   };

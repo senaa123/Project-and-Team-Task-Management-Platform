@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import api from "@/lib/api";
 import Button from "@/components/ui/Button";
-import { Copy, CheckCircle, ListChecks, FolderKanban, Users } from "lucide-react";
+import { CheckCircle, ListChecks, FolderKanban, Users } from "lucide-react";
 
 const schema = z.object({
   empId: z.string().min(1, "Employee ID is required"),

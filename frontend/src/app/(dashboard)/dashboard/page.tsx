@@ -4,12 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import api from "@/lib/api";
 import { useAuthStore } from "@/lib/auth-store";
-import { Project, Task } from "@/types";
+import { Task } from "@/types";
 import { Bell } from "lucide-react";
 
 export default function DashboardPage() {
-  const user = useAuthStore((s) => s.user);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const { user } = useAuthStore();
   const [myTasks, setMyTasks] = useState<Task[]>([]);
 
   const [adminData, setAdminData] = useState<any>(null);
@@ -17,14 +16,14 @@ export default function DashboardPage() {
   const isAdminOrPM = user?.role === "ADMIN" || user?.role === "PROJECT_MANAGER";
 
   useEffect(() => {
-    api.get("/projects").then((res) => setProjects(res.data)).catch(console.error);
+    if (!user) return;
     
     if (isAdminOrPM) {
       api.get("/dashboard/admin").then((res) => setAdminData(res.data)).catch(console.error);
     } else {
       api.get("/tasks/my").then((res) => setMyTasks(res.data)).catch(console.error);
     }
-  }, [isAdminOrPM]);
+  }, [isAdminOrPM, user]);
 
   const handleToggleTask = async (task: Task) => {
     const newStatus = task.status === "DONE" ? "TODO" : "DONE";

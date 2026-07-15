@@ -161,7 +161,6 @@ export default function TasksPage() {
 
   const isAdmin = user?.role === "ADMIN";
   const isPM = user?.role === "PROJECT_MANAGER";
-  const canCreate = isAdmin || isPM;
 
   // Find selected project data to check ownership
   const selectedProjectData = projects.find((p) => p.id === selectedProject);
