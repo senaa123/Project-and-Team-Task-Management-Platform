@@ -10,7 +10,9 @@ export class RegisterDto {
   @MinLength(6)
   password: string;
 
+  @IsString()
+  empId: string;
+
   @IsOptional()
-  @IsIn(['ADMIN', 'PROJECT_MANAGER', 'TEAM_MEMBER'])
   role?: string;
 }

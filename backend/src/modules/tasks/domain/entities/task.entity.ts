@@ -8,5 +8,6 @@ export class TaskEntity {
     public priority: string,
     public assigneeId: string | null,
     public dueDate: Date | null,
+    public assignee?: { id: string; name: string; empId: string | null },
   ) {}
 }

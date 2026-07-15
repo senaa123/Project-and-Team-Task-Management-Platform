@@ -15,12 +15,14 @@ export class RegisterUseCase {
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
     const user = await this.userRepo.create({
+      empId: dto.empId,
       name: dto.name,
       email: dto.email,
       passwordHash,
-      role: dto.role ?? 'TEAM_MEMBER',
+      role: 'PENDING',
+      isVerified: false,
     });
 
-    return { id: user.id, email: user.email, role: user.role };
+    return { message: 'Registration successful. Please wait for an administrator to verify your account and assign your role.' };
   }
 }
