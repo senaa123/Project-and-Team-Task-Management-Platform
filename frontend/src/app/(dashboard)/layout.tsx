@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <main className="flex-1 overflow-hidden flex flex-col h-screen">
         {/* Mobile Header */}
         <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-100 shrink-0">
-          <span className="font-bold text-xl text-gray-900 tracking-tight">Taskify</span>
+          <span className="font-bold text-xl text-gray-900 tracking-tight">CyphLab</span>
           <button onClick={() => setIsSidebarOpen(true)} className="text-gray-500 hover:text-gray-700">
             <Menu size={24} />
           </button>
