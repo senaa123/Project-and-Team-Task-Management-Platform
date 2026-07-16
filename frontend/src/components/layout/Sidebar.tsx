@@ -22,7 +22,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="flex items-center gap-2 mb-12">
         <Flame className="text-primary fill-primary" size={28} />
-        <span className="font-bold text-xl text-gray-900 tracking-tight">Taskify</span>
+        <span className="font-bold text-xl text-gray-900 tracking-tight">CyphLab</span>
       </div>
 
       {/* Main Nav */}

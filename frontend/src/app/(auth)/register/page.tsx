@@ -8,13 +8,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import api from "@/lib/api";
 import Button from "@/components/ui/Button";
-import { CheckCircle, ListChecks, FolderKanban, Users } from "lucide-react";
+import { CheckCircle, ListChecks, FolderKanban, Users, Flame } from "lucide-react";
 
 const schema = z.object({
   empId: z.string().min(1, "Employee ID is required"),
   name: z.string().min(2, "Name is too short"),
   email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Minimum 6 characters"),
+  password: z
+    .string()
+    .min(6, "Minimum 6 characters")
+    .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+    .regex(/[0-9]/, "Must contain at least one number"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -23,7 +27,9 @@ function BrandPanel() {
   return (
     <div className="hidden lg:flex w-1/2 bg-primary text-white flex-col justify-between p-12 relative overflow-hidden">
       <div className="flex items-center gap-2.5 relative z-10">
-        <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center font-bold">C</div>
+        <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center">
+          <Flame className="text-white fill-white" size={20} />
+        </div>
         <span className="font-semibold text-lg">CyphLab</span>
       </div>
 
