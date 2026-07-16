@@ -84,7 +84,10 @@ The system enforces strict access control across both the backend API and fronte
    Once the backend is running, you can explore and test the interactive API documentation at:
    [http://localhost:3002/api](http://localhost:3002/api)
 
-7. **Run Unit Tests:**
+   You can also access the live production API documentation at:
+   [https://project-and-team-task-management-platform-bvwv.onrender.com/api](https://project-and-team-task-management-platform-bvwv.onrender.com/api)
+
+8. **Run Unit Tests:**
    ```bash
    npm run test
    ```
