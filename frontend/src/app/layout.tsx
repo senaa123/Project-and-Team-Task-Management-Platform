@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "CyphLab — Project & Task Management",
+  title: "CyphLab - Project & Task Management",
   description: "Manage projects and tasks across your team",
 };
 

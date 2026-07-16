@@ -20,6 +20,8 @@ This repository is organized as a monorepo containing two main parts:
 * **Database ORM:** Prisma
 * **Database:** PostgreSQL
 * **Security:** JWT Auth & Passport
+* **API Documentation:** Swagger UI (OpenAPI)
+* **Testing:** Jest (Unit & e2e testing)
 
 ---
 
@@ -78,6 +80,15 @@ The system enforces strict access control across both the backend API and fronte
    ```
    *The backend will run on `http://localhost:3002`.*
 
+6. **View API Documentation:**
+   Once the backend is running, you can explore and test the interactive API documentation at:
+   [http://localhost:3002/api](http://localhost:3002/api)
+
+7. **Run Unit Tests:**
+   ```bash
+   npm run test
+   ```
+
 ---
 
 ### 2. Frontend Setup
@@ -112,3 +123,11 @@ The project utilizes **GitHub Actions** to automate quality checks on every push
 ### Deployment (CD)
 * **Frontend:** Deployed automatically to **Vercel** on every push to `main`.
 * **Backend:** Deployed automatically to **Google Cloud Run** via Google Cloud Build (configured with Dockerfile triggers matching pushes to the `/backend` folder).
+
+---
+
+## 👨‍💻 Developer & Acknowledgments
+
+**Developer:** senaa123
+
+*This project was developed as part of the CyphLab Full Stack Developer Intern Talent Assessment Program.*

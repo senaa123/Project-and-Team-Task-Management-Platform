@@ -8,7 +8,7 @@ import { z } from "zod";
 import api from "@/lib/api";
 import { useAuthStore } from "@/lib/auth-store";
 import Button from "@/components/ui/Button";
-import { ListChecks, FolderKanban, Users } from "lucide-react";
+import { ListChecks, FolderKanban, Users, Flame } from "lucide-react";
 
 const schema = z.object({
   email: z.string().email("Invalid email"),
@@ -19,9 +19,9 @@ type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
   const router = useRouter();
+  const [error, setError] = useState("");
   const setAuth = useAuthStore((s) => s.setAuth);
   const token = useAuthStore((s) => s.token);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (token) {
@@ -33,7 +33,9 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
 
   const onSubmit = async (data: FormData) => {
     setError("");
@@ -51,7 +53,9 @@ export default function LoginPage() {
       {/* Brand panel */}
       <div className="hidden lg:flex w-1/2 bg-primary text-white flex-col justify-between p-12 relative overflow-hidden">
         <div className="flex items-center gap-2.5 relative z-10">
-          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center font-bold">C</div>
+          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center">
+            <Flame className="text-white fill-white" size={20} />
+          </div>
           <span className="font-semibold text-lg">CyphLab</span>
         </div>
 
