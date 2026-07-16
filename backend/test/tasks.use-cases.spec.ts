@@ -68,8 +68,9 @@ describe('Tasks Use Cases', () => {
     );
     updateTaskUseCase = module.get<UpdateTaskUseCase>(UpdateTaskUseCase);
     getMyTasksUseCase = module.get<GetMyTasksUseCase>(GetMyTasksUseCase);
-    getProjectTasksUseCase =
-      module.get<GetProjectTasksUseCase>(GetProjectTasksUseCase);
+    getProjectTasksUseCase = module.get<GetProjectTasksUseCase>(
+      GetProjectTasksUseCase,
+    );
     jest.clearAllMocks();
   });
 
@@ -176,7 +177,7 @@ describe('Tasks Use Cases', () => {
       ).rejects.toThrow(NotFoundException);
     });
 
-    it('❌ should throw ForbiddenException when TEAM_MEMBER tries to update someone else\'s task', async () => {
+    it("❌ should throw ForbiddenException when TEAM_MEMBER tries to update someone else's task", async () => {
       mockTaskRepo.findById.mockResolvedValue(mockTask); // assigneeId = 'user-uuid-2'
 
       await expect(
@@ -191,7 +192,7 @@ describe('Tasks Use Cases', () => {
       expect(mockTaskRepo.updateStatus).not.toHaveBeenCalled();
     });
 
-    it('❌ should throw ForbiddenException when PROJECT_MANAGER updates task in a project they don\'t own', async () => {
+    it("❌ should throw ForbiddenException when PROJECT_MANAGER updates task in a project they don't own", async () => {
       mockTaskRepo.findById.mockResolvedValue(mockTask); // projectId = 'proj-uuid-1'
       mockPrisma.project.findUnique.mockResolvedValue({
         id: 'proj-uuid-1',
@@ -261,7 +262,7 @@ describe('Tasks Use Cases', () => {
       ).rejects.toThrow(NotFoundException);
     });
 
-    it('❌ should throw ForbiddenException when PROJECT_MANAGER edits task in a project they don\'t own', async () => {
+    it("❌ should throw ForbiddenException when PROJECT_MANAGER edits task in a project they don't own", async () => {
       mockTaskRepo.findById.mockResolvedValue(mockTask); // projectId = 'proj-uuid-1'
       mockPrisma.project.findUnique.mockResolvedValue({
         id: 'proj-uuid-1',

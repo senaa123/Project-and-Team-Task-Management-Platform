@@ -52,7 +52,10 @@ export class TasksController {
     status: 400,
     description: 'Bad request — assignee is not a member of the project.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — insufficient role.' })
   create(@Body() dto: CreateTaskDto, @Req() req: any) {
     return this.createTaskUseCase.execute(dto, req.user.userId, req.user.role);
@@ -64,11 +67,24 @@ export class TasksController {
     description:
       'Updates the Kanban status of a task. Team Members can only update tasks assigned to them. Project Managers can only update tasks in projects they own.',
   })
-  @ApiParam({ name: 'id', description: 'UUID of the task to update', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'Task status updated successfully.' })
-  @ApiResponse({ status: 403, description: 'Forbidden — you do not have permission to update this task.' })
+  @ApiParam({
+    name: 'id',
+    description: 'UUID of the task to update',
+    format: 'uuid',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Task status updated successfully.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden — you do not have permission to update this task.',
+  })
   @ApiResponse({ status: 404, description: 'Task not found.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   updateStatus(
     @Param('id') id: string,
     @Body() dto: UpdateTaskStatusDto,
@@ -89,15 +105,25 @@ export class TasksController {
     description:
       'Updates the title, description, priority, assignee, or due date of a task. Project Managers can only edit tasks in projects they own.',
   })
-  @ApiParam({ name: 'id', description: 'UUID of the task to edit', format: 'uuid' })
+  @ApiParam({
+    name: 'id',
+    description: 'UUID of the task to edit',
+    format: 'uuid',
+  })
   @ApiResponse({ status: 200, description: 'Task updated successfully.' })
   @ApiResponse({
     status: 400,
     description: 'Bad request — new assignee is not a member of the project.',
   })
-  @ApiResponse({ status: 403, description: 'Forbidden — you do not manage this project.' })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden — you do not manage this project.',
+  })
   @ApiResponse({ status: 404, description: 'Task not found.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   updateTask(
     @Param('id') id: string,
     @Body() dto: UpdateTaskDto,
@@ -114,11 +140,19 @@ export class TasksController {
   @Get('project/:projectId')
   @ApiOperation({
     summary: 'Get all tasks in a project',
-    description: 'Returns every task belonging to the specified project (Kanban board data).',
+    description:
+      'Returns every task belonging to the specified project (Kanban board data).',
   })
-  @ApiParam({ name: 'projectId', description: 'UUID of the project', format: 'uuid' })
+  @ApiParam({
+    name: 'projectId',
+    description: 'UUID of the project',
+    format: 'uuid',
+  })
   @ApiResponse({ status: 200, description: 'List of project tasks returned.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   getByProject(@Param('projectId') projectId: string) {
     return this.getProjectTasksUseCase.execute(projectId);
   }
@@ -126,10 +160,14 @@ export class TasksController {
   @Get('my')
   @ApiOperation({
     summary: 'Get tasks assigned to the current user',
-    description: 'Returns all tasks assigned to the authenticated user across all projects.',
+    description:
+      'Returns all tasks assigned to the authenticated user across all projects.',
   })
   @ApiResponse({ status: 200, description: 'List of assigned tasks returned.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   getMyTasks(@Req() req: any) {
     return this.getMyTasksUseCase.execute(req.user.userId);
   }

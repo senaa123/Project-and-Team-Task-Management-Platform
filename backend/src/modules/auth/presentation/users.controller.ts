@@ -39,10 +39,17 @@ export class UsersController {
   @Roles('ADMIN')
   @ApiOperation({
     summary: 'Get all pending user registrations',
-    description: 'Returns a list of users who have registered but are not yet verified. Admin only.',
+    description:
+      'Returns a list of users who have registered but are not yet verified. Admin only.',
   })
-  @ApiResponse({ status: 200, description: 'List of pending users returned successfully.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of pending users returned successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — Admin role required.' })
   async getPending() {
     return this.userRepo.findPending();
@@ -51,10 +58,17 @@ export class UsersController {
   @Get('verified')
   @ApiOperation({
     summary: 'Get all verified users',
-    description: 'Returns all users who have been approved and are active in the system.',
+    description:
+      'Returns all users who have been approved and are active in the system.',
   })
-  @ApiResponse({ status: 200, description: 'List of verified users returned successfully.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of verified users returned successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   async getVerified() {
     return this.userRepo.findVerified();
   }
@@ -63,12 +77,26 @@ export class UsersController {
   @Roles('ADMIN')
   @ApiOperation({
     summary: 'Approve a pending user and assign their role',
-    description: 'Verifies a pending user registration and assigns them a role. Admin only.',
+    description:
+      'Verifies a pending user registration and assigns them a role. Admin only.',
   })
-  @ApiParam({ name: 'id', description: 'UUID of the pending user to approve', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'User successfully verified and role assigned.' })
-  @ApiResponse({ status: 400, description: 'Bad request — invalid role value.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiParam({
+    name: 'id',
+    description: 'UUID of the pending user to approve',
+    format: 'uuid',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'User successfully verified and role assigned.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request — invalid role value.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — Admin role required.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
   async verifyUser(@Param('id') id: string, @Body() dto: VerifyUserDto) {
@@ -80,11 +108,22 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Reject and delete a pending user',
-    description: 'Permanently removes a pending user registration from the system. Admin only.',
+    description:
+      'Permanently removes a pending user registration from the system. Admin only.',
   })
-  @ApiParam({ name: 'id', description: 'UUID of the pending user to reject', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'User successfully rejected and removed.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiParam({
+    name: 'id',
+    description: 'UUID of the pending user to reject',
+    format: 'uuid',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'User successfully rejected and removed.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — Admin role required.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
   async rejectUser(@Param('id') id: string) {

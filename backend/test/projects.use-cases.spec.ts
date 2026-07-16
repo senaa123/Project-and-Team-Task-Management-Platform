@@ -59,8 +59,9 @@ describe('Projects Use Cases', () => {
     getProjectMembersUseCase = module.get<GetProjectMembersUseCase>(
       GetProjectMembersUseCase,
     );
-    getAllProjectsUseCase =
-      module.get<GetAllProjectsUseCase>(GetAllProjectsUseCase);
+    getAllProjectsUseCase = module.get<GetAllProjectsUseCase>(
+      GetAllProjectsUseCase,
+    );
     updateProjectOwnerUseCase = module.get<UpdateProjectOwnerUseCase>(
       UpdateProjectOwnerUseCase,
     );

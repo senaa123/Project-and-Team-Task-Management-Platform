@@ -52,8 +52,14 @@ export class DashboardController {
       },
     },
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
-  @ApiResponse({ status: 403, description: 'Forbidden — Admin or Project Manager role required.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden — Admin or Project Manager role required.',
+  })
   getAdminDashboard() {
     return this.getAdminDashboardUseCase.execute();
   }

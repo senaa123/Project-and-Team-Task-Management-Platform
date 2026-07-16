@@ -23,7 +23,10 @@ export class AuthController {
     status: 201,
     description: 'Registration successful. Account is pending admin approval.',
   })
-  @ApiResponse({ status: 409, description: 'Conflict — email is already registered.' })
+  @ApiResponse({
+    status: 409,
+    description: 'Conflict — email is already registered.',
+  })
   @ApiResponse({ status: 400, description: 'Bad request — validation failed.' })
   register(@Body() dto: RegisterDto) {
     return this.registerUseCase.execute(dto);
@@ -40,7 +43,10 @@ export class AuthController {
     status: 200,
     description: 'Login successful — returns accessToken and user details.',
   })
-  @ApiResponse({ status: 401, description: 'Unauthorized — invalid credentials or unverified account.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — invalid credentials or unverified account.',
+  })
   @ApiResponse({ status: 400, description: 'Bad request — validation failed.' })
   login(@Body() dto: LoginDto) {
     return this.loginUseCase.execute(dto);

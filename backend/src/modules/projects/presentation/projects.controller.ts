@@ -46,10 +46,14 @@ export class ProjectsController {
   @Roles('ADMIN', 'PROJECT_MANAGER')
   @ApiOperation({
     summary: 'Create a new project',
-    description: 'Creates a project owned by the requesting user. Admin or Project Manager only.',
+    description:
+      'Creates a project owned by the requesting user. Admin or Project Manager only.',
   })
   @ApiResponse({ status: 201, description: 'Project created successfully.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — insufficient role.' })
   create(@Body() dto: CreateProjectDto, @Req() req: any) {
     return this.createProjectUseCase.execute(dto, req.user.userId);
@@ -59,13 +63,20 @@ export class ProjectsController {
   @Roles('ADMIN', 'PROJECT_MANAGER')
   @ApiOperation({
     summary: 'Add a member to a project',
-    description: 'Assigns a verified user as a member of the specified project.',
+    description:
+      'Assigns a verified user as a member of the specified project.',
   })
   @ApiParam({ name: 'id', description: 'UUID of the project', format: 'uuid' })
   @ApiResponse({ status: 201, description: 'Member assigned successfully.' })
-  @ApiResponse({ status: 409, description: 'Conflict — user is already a member.' })
+  @ApiResponse({
+    status: 409,
+    description: 'Conflict — user is already a member.',
+  })
   @ApiResponse({ status: 404, description: 'Project or user not found.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — insufficient role.' })
   assignMember(@Param('id') projectId: string, @Body() dto: AssignMemberDto) {
     return this.assignMemberUseCase.execute(projectId, dto.userId);
@@ -74,11 +85,18 @@ export class ProjectsController {
   @Get(':id/members')
   @ApiOperation({
     summary: 'Get members of a project',
-    description: 'Returns all verified members belonging to the specified project.',
+    description:
+      'Returns all verified members belonging to the specified project.',
   })
   @ApiParam({ name: 'id', description: 'UUID of the project', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'List of project members returned.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of project members returned.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   getMembers(@Param('id') projectId: string) {
     return this.getProjectMembersUseCase.execute(projectId);
   }
@@ -86,10 +104,14 @@ export class ProjectsController {
   @Get()
   @ApiOperation({
     summary: 'Get projects for the current user',
-    description: 'Returns projects the authenticated user owns or is a member of.',
+    description:
+      'Returns projects the authenticated user owns or is a member of.',
   })
   @ApiResponse({ status: 200, description: 'List of user projects returned.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   getMyProjects(@Req() req: any) {
     return this.getUserProjectsUseCase.execute(req.user.userId);
   }
@@ -97,10 +119,14 @@ export class ProjectsController {
   @Get('all')
   @ApiOperation({
     summary: 'Get all projects in the system',
-    description: 'Returns every project regardless of membership. Used for admin overviews and task project selectors.',
+    description:
+      'Returns every project regardless of membership. Used for admin overviews and task project selectors.',
   })
   @ApiResponse({ status: 200, description: 'Full list of projects returned.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   getAllProjects() {
     return this.getAllProjectsUseCase.execute();
   }
@@ -109,12 +135,19 @@ export class ProjectsController {
   @Roles('ADMIN')
   @ApiOperation({
     summary: 'Change the Project Manager of a project',
-    description: 'Updates the owner (Project Manager) of a project. Admin only.',
+    description:
+      'Updates the owner (Project Manager) of a project. Admin only.',
   })
   @ApiParam({ name: 'id', description: 'UUID of the project', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'Project owner updated successfully.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Project owner updated successfully.',
+  })
   @ApiResponse({ status: 404, description: 'Project not found.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized — missing or invalid JWT.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid JWT.',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden — Admin role required.' })
   updateOwner(
     @Param('id') projectId: string,
