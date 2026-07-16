@@ -35,7 +35,7 @@ export default function Sidebar({ isOpen = false, onClose }: { isOpen?: boolean;
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-2">
             <Flame className="text-primary fill-primary" size={28} />
-            <span className="font-bold text-xl text-gray-900 tracking-tight">Taskify</span>
+            <span className="font-bold text-xl text-gray-900 tracking-tight">CyphLab</span>
           </div>
           {onClose && (
             <button onClick={onClose} className="md:hidden text-gray-400 hover:text-gray-600">
