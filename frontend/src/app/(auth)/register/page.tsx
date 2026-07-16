@@ -10,16 +10,26 @@ import api from "@/lib/api";
 import Button from "@/components/ui/Button";
 import { CheckCircle, ListChecks, FolderKanban, Users, Flame } from "lucide-react";
 
-const schema = z.object({
-  empId: z.string().min(1, "Employee ID is required"),
-  name: z.string().min(2, "Name is too short"),
-  email: z.string().email("Invalid email"),
-  password: z
-    .string()
-    .min(6, "Minimum 6 characters")
-    .regex(/[A-Z]/, "Must contain at least one uppercase letter")
-    .regex(/[0-9]/, "Must contain at least one number"),
-});
+const schema = z
+  .object({
+    empId: z
+      .string()
+      .trim()
+      .min(1, "Employee ID is required")
+      .regex(/^\S+$/, "Employee ID cannot contain spaces"),
+    name: z.string().trim().min(2, "Name is too short"),
+    email: z.string().trim().email("Invalid email"),
+    password: z
+      .string()
+      .min(6, "Minimum 6 characters")
+      .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+      .regex(/[0-9]/, "Must contain at least one number"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 type FormData = z.infer<typeof schema>;
 
@@ -164,6 +174,16 @@ export default function RegisterPage() {
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
               />
               {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>}
+            </div>
+
+            <div>
+              <input
+                {...register("confirmPassword")}
+                type="password"
+                placeholder="Confirm Password"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
+              />
+              {errors.confirmPassword && <p className="text-xs text-red-500 mt-1">{errors.confirmPassword.message}</p>}
             </div>
 
             {error && <p className="text-sm text-red-500">{error}</p>}
