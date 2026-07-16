@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
   const _hasHydrated = useAuthStore((s) => s._hasHydrated);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (_hasHydrated && !token) {
@@ -22,19 +22,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="flex bg-background min-h-screen">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      <div className="flex-1 flex flex-col min-w-0">
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <main className="flex-1 overflow-hidden flex flex-col h-screen">
         {/* Mobile Header */}
-        <header className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-100">
-          <div className="font-bold text-xl text-gray-900 tracking-tight">CyphLab</div>
-          <button onClick={() => setSidebarOpen(true)} className="p-2 -mr-2 text-gray-600">
+        <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-100 shrink-0">
+          <span className="font-bold text-xl text-gray-900 tracking-tight">Taskify</span>
+          <button onClick={() => setIsSidebarOpen(true)} className="text-gray-500 hover:text-gray-700">
             <Menu size={24} />
           </button>
-        </header>
-        
-        <main className="flex-1 overflow-auto">{children}</main>
-      </div>
+        </div>
+        {/* Main Content Area */}
+        <div className="flex-1 overflow-y-auto">
+          {children}
+        </div>
+      </main>
     </div>
   );
 }
