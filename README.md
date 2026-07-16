@@ -122,7 +122,7 @@ The project utilizes **GitHub Actions** to automate quality checks on every push
 
 ### Deployment (CD)
 * **Frontend:** Deployed automatically to **Vercel** on every push to `main`.
-* **Backend:** Deployed automatically to **Google Cloud Run** via Google Cloud Build (configured with Dockerfile triggers matching pushes to the `/backend` folder).
+* **Backend:** Deployed on **Render** with automatic deployments configured through GitHub integration using the public repository.
 
 ---
 
