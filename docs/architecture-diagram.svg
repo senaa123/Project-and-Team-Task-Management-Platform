@@ -1,0 +1,92 @@
+<svg viewBox="0 0 1400 970" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrowNavy" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1F3350"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="970" fill="#FFFFFF"/>
+
+  <text x="700" y="70" text-anchor="middle" fill="#16233A" font-size="34" font-weight="700">System Architecture</text>
+  <text x="700" y="105" text-anchor="middle" fill="#3B6591" font-size="18" font-style="italic">Taskify — Project &amp; Team Task Management Platform</text>
+
+  <!-- ROW 1: Request pipeline (dark navy) -->
+  <rect x="40" y="170" width="230" height="130" rx="14" fill="#1F3350"/>
+  <text x="155" y="222" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Client Browser</text>
+  <text x="155" y="248" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">Admin / PM / Member</text>
+
+  <line x1="270" y1="235" x2="315" y2="235" stroke="#1F3350" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <rect x="320" y="170" width="230" height="130" rx="14" fill="#1F3350"/>
+  <text x="435" y="215" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Next.js</text>
+  <text x="435" y="238" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Frontend</text>
+  <text x="435" y="264" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">Vercel deployment</text>
+
+  <line x1="550" y1="235" x2="595" y2="235" stroke="#1F3350" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <rect x="600" y="170" width="230" height="130" rx="14" fill="#1F3350"/>
+  <text x="715" y="215" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">NestJS API</text>
+  <text x="715" y="238" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Controllers</text>
+  <text x="715" y="264" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">JWT + Roles guards</text>
+
+  <line x1="830" y1="235" x2="875" y2="235" stroke="#1F3350" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <rect x="880" y="170" width="230" height="130" rx="14" fill="#1F3350"/>
+  <text x="995" y="215" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Use-Case</text>
+  <text x="995" y="238" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Layer</text>
+  <text x="995" y="264" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">Business logic, RBAC rules</text>
+
+  <line x1="1110" y1="235" x2="1155" y2="235" stroke="#1F3350" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <rect x="1160" y="170" width="200" height="130" rx="14" fill="#1F3350"/>
+  <text x="1260" y="222" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">PostgreSQL</text>
+  <text x="1260" y="248" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">Neon / Render</text>
+
+  <!-- Curved return arrow from DB back down to branch node, echoing reference style -->
+  <path d="M 1260 300 C 1260 400, 900 420, 715 430" fill="none" stroke="#1F3350" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <!-- Branch node -->
+  <circle cx="715" cy="430" r="5" fill="#1F3350"/>
+
+  <!-- Branch lines down to module boxes -->
+  <line x1="715" y1="430" x2="230" y2="510" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="715" y1="430" x2="560" y2="510" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="715" y1="430" x2="890" y2="510" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="715" y1="430" x2="1220" y2="510" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+
+  <!-- ROW 2: Modules (steel blue, secondary tier) -->
+  <rect x="100" y="520" width="280" height="150" rx="14" fill="#5B84A8"/>
+  <text x="240" y="570" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Auth Module</text>
+  <text x="240" y="598" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">Register, login,</text>
+  <text x="240" y="618" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">JWT issuance</text>
+
+  <rect x="420" y="520" width="280" height="150" rx="14" fill="#5B84A8"/>
+  <text x="560" y="570" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Projects Module</text>
+  <text x="560" y="598" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">Create, list,</text>
+  <text x="560" y="618" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">assign members</text>
+
+  <rect x="740" y="520" width="280" height="150" rx="14" fill="#5B84A8"/>
+  <text x="880" y="570" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Tasks Module</text>
+  <text x="880" y="598" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">Create, list,</text>
+  <text x="880" y="618" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">status ownership rules</text>
+
+  <rect x="1060" y="520" width="280" height="150" rx="14" fill="#5B84A8"/>
+  <text x="1200" y="570" text-anchor="middle" fill="#FFFFFF" font-size="19" font-weight="700">Shared Layer</text>
+  <text x="1200" y="598" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">RolesGuard,</text>
+  <text x="1200" y="618" text-anchor="middle" fill="#EAF1F8" font-size="13" font-style="italic">Prisma service</text>
+
+  <!-- Converging lines down to final box -->
+  <line x1="240" y1="670" x2="700" y2="770" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="560" y1="670" x2="700" y2="770" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="880" y1="670" x2="700" y2="770" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+  <line x1="1200" y1="670" x2="700" y2="770" stroke="#1F3350" stroke-width="2" marker-end="url(#arrowNavy)"/>
+
+  <!-- Final box -->
+  <rect x="450" y="780" width="500" height="90" rx="14" fill="#1F3350"/>
+  <text x="700" y="820" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="700">Infrastructure Layer</text>
+  <text x="700" y="845" text-anchor="middle" fill="#B9C8DA" font-size="13" font-style="italic">Prisma repositories — all DB access isolated here</text>
+
+  <!-- Footer note -->
+  <rect x="300" y="905" width="800" height="46" rx="8" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1.5"/>
+  <text x="700" y="933" text-anchor="middle" fill="#16233A" font-size="14" font-style="italic">Auth: registrations start PENDING; Admin approval required before JWT login is permitted. RolesGuard + use-cases enforce ownership rules.</text>
+</svg>

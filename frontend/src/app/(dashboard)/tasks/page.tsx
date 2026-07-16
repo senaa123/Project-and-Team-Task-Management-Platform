@@ -87,13 +87,15 @@ function TaskCard({
 // ─── KanbanBoard ─────────────────────────────────────────────────────────────
 function KanbanBoard({
   tasks,
-  canEdit,
+  userId,
+  userRole,
   canManageTask,
   onStatusChange,
   onEdit,
 }: {
   tasks: Task[];
-  canEdit: boolean;
+  userId: string;
+  userRole: string;
   canManageTask: boolean;
   onStatusChange: (taskId: string, status: string) => void;
   onEdit: (task: Task) => void;
@@ -118,16 +120,22 @@ function KanbanBoard({
               {columnTasks.length === 0 ? (
                 <p className="text-xs text-gray-300 text-center pt-6 select-none">Empty</p>
               ) : (
-                columnTasks.map((task) => (
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    canEdit={canEdit}
-                    canManageTask={canManageTask}
-                    onStatusChange={onStatusChange}
-                    onEdit={onEdit}
-                  />
-                ))
+                columnTasks.map((task) => {
+                  // TEAM_MEMBERs can only change status on tasks assigned to them
+                  const canEditThisTask =
+                    canManageTask ||
+                    (userRole === "TEAM_MEMBER" && task.assigneeId === userId);
+                  return (
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      canEdit={canEditThisTask}
+                      canManageTask={canManageTask}
+                      onStatusChange={onStatusChange}
+                      onEdit={onEdit}
+                    />
+                  );
+                })
               )}
             </div>
           </div>
@@ -409,7 +417,8 @@ export default function TasksPage() {
       ) : (
         <KanbanBoard
           tasks={tasks}
-          canEdit={canEditTasks}
+          userId={user?.id ?? ""}
+          userRole={user?.role ?? ""}
           canManageTask={isAdmin || isProjectOwner}
           onStatusChange={handleStatusChange}
           onEdit={handleEditOpen}

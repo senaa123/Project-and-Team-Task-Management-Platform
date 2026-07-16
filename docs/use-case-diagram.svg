@@ -1,0 +1,111 @@
+<svg viewBox="0 0 1300 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1300" height="900" fill="#FFFFFF"/>
+
+  <text x="650" y="60" text-anchor="middle" fill="#16233A" font-size="34" font-weight="700">Use Case Diagram</text>
+  <text x="650" y="95" text-anchor="middle" fill="#3B6591" font-size="18" font-style="italic">Taskify — Project &amp; Team Task Management Platform</text>
+
+  <!-- System boundary -->
+  <rect x="400" y="130" width="850" height="700" rx="16" fill="none" stroke="#5B84A8" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="825" y="160" text-anchor="middle" fill="#3B6591" font-size="15" font-weight="700" font-style="italic">Task Management System</text>
+
+  <!-- Actor: Admin -->
+  <g transform="translate(90,220)">
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="16" x2="0" y2="62" stroke="#1F3350" stroke-width="3"/>
+    <line x1="-26" y1="34" x2="26" y2="34" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="-20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <text x="0" y="128" text-anchor="middle" fill="#16233A" font-size="15" font-weight="700">Administrator</text>
+  </g>
+
+  <!-- Actor: PM -->
+  <g transform="translate(90,460)">
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="16" x2="0" y2="62" stroke="#1F3350" stroke-width="3"/>
+    <line x1="-26" y1="34" x2="26" y2="34" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="-20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <text x="0" y="128" text-anchor="middle" fill="#16233A" font-size="15" font-weight="700">Project Manager</text>
+  </g>
+
+  <!-- Actor: Team Member -->
+  <g transform="translate(90,700)">
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="16" x2="0" y2="62" stroke="#1F3350" stroke-width="3"/>
+    <line x1="-26" y1="34" x2="26" y2="34" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="-20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <line x1="0" y1="62" x2="20" y2="102" stroke="#1F3350" stroke-width="3"/>
+    <text x="0" y="128" text-anchor="middle" fill="#16233A" font-size="15" font-weight="700">Team Member</text>
+  </g>
+
+  <!-- Use case ovals: shared -->
+  <ellipse cx="620" cy="190" rx="110" ry="32" fill="#1F3350"/>
+  <text x="620" y="196" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Register / Login</text>
+
+  <ellipse cx="900" cy="190" rx="130" ry="32" fill="#1F3350"/>
+  <text x="900" y="196" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">View Assigned Projects</text>
+
+  <!-- Admin only -->
+  <ellipse cx="620" cy="270" rx="130" ry="32" fill="#5B84A8"/>
+  <text x="620" y="276" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Manage Users &amp; Roles</text>
+
+  <ellipse cx="620" cy="350" rx="135" ry="32" fill="#5B84A8"/>
+  <text x="620" y="356" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Manage System Access</text>
+
+  <!-- Admin + PM -->
+  <ellipse cx="620" cy="440" rx="105" ry="32" fill="#1F3350"/>
+  <text x="620" y="446" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Create Project</text>
+
+  <ellipse cx="900" cy="440" rx="130" ry="32" fill="#1F3350"/>
+  <text x="900" y="446" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Assign Team Members</text>
+
+  <ellipse cx="620" cy="520" rx="105" ry="32" fill="#1F3350"/>
+  <text x="620" y="526" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Create Task</text>
+
+  <ellipse cx="900" cy="520" rx="120" ry="32" fill="#1F3350"/>
+  <text x="900" y="526" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Edit Task Details</text>
+
+  <!-- New: Admin-only approval workflow -->
+  <ellipse cx="900" cy="270" rx="140" ry="32" fill="#5B84A8"/>
+  <text x="900" y="276" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Approve User Registration</text>
+
+  <!-- Team member -->
+  <ellipse cx="620" cy="610" rx="115" ry="32" fill="#5B84A8"/>
+  <text x="620" y="616" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">View Assigned Tasks</text>
+
+  <ellipse cx="900" cy="610" rx="125" ry="32" fill="#5B84A8"/>
+  <text x="900" y="616" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Update Task Progress</text>
+
+  <ellipse cx="620" cy="690" rx="115" ry="32" fill="#5B84A8"/>
+  <text x="620" y="696" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Add Task Comment</text>
+
+  <!-- Connections: Admin -->
+  <line x1="118" y1="220" x2="500" y2="195" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="490" y2="270" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="485" y2="350" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="515" y2="440" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="515" y2="520" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="770" y2="440" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="765" y2="270" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="220" x2="785" y2="520" stroke="#1F3350" stroke-width="1.5"/>
+
+  <!-- Connections: PM -->
+  <line x1="118" y1="460" x2="515" y2="440" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="460" x2="515" y2="520" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="460" x2="770" y2="440" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="460" x2="780" y2="520" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="460" x2="510" y2="195" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="460" x2="770" y2="195" stroke="#1F3350" stroke-width="1.5"/>
+
+  <!-- Connections: Team Member -->
+  <line x1="118" y1="700" x2="510" y2="195" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="700" x2="770" y2="195" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="700" x2="505" y2="610" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="700" x2="775" y2="610" stroke="#1F3350" stroke-width="1.5"/>
+  <line x1="118" y1="700" x2="505" y2="690" stroke="#1F3350" stroke-width="1.5"/>
+
+  <!-- Footer note -->
+  <text x="90" y="850" fill="#16233A" font-size="13" font-style="italic">Note: New users register into a PENDING state and cannot log in until an Admin approves them.</text>
+  <text x="90" y="870" fill="#16233A" font-size="13" font-style="italic">"Edit Task Details" and "Add Task Comment" are extension features beyond the core assessment scope.</text>
+  <text x="90" y="890" fill="#16233A" font-size="13" font-style="italic">Task assignment is validated against project membership before it is allowed.</text>
+</svg>
