@@ -13,6 +13,7 @@ export interface IUserRepository {
   findPending(): Promise<UserEntity[]>;
   findVerified(): Promise<UserEntity[]>;
   verifyUser(userId: string, role: string): Promise<UserEntity>;
+  deleteUser(userId: string): Promise<void>;
 }
 
 export const USER_REPOSITORY = 'USER_REPOSITORY';
