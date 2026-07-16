@@ -99,7 +99,9 @@ export default function RegisterPage() {
   const onSubmit = async (data: FormData) => {
     setError("");
     try {
-      const res = await api.post("/auth/register", data);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { confirmPassword, ...payload } = data;
+      const res = await api.post("/auth/register", payload);
       setIsSuccess(true);
       setSuccessMessage(res.data.message ?? "Registration successful.");
     } catch (err: any) {
